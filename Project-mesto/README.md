@@ -4,4 +4,4 @@
 
 Центральная фигура страницы - Жак-Ив Кусто. Всемирно известный исследователь океана.
 
-[Место](https://elsycloud.github.io/russian-travel/ "Проект 4")
+[Место](https://elsycloud.github.io/mesto/. "Проект 4")
