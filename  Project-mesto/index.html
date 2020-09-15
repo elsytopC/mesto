@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <title>Mesto Russia</title>
+    <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <div class="header__logo"></div>
+    </header>
+<main class="content">
+    <section class="profile">
+        <img class="profile__avatar" alt="картинка Жак-Ив Кусто" src="./images/zhak-iv-kusto.jpg">
+        <div class="profile__info">
+            <button class="profile__edit-button"></button>
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+        <div class="profile__add-button"></div>
+    </section>
+    <section class="elements">
+        <div class="element">
+            <div class="element__background"><img class="element__image" src="./images/karachaevsk_background.jpg" alt="картинка Карачаевск">
+                <div class="element__block">
+                    <p class="element__text">Карачаевск</p>
+                    <div class="element__like-button"></div>
+                </div>
+            </div>
+        </div>
+        <div class="element">
+            <div class="element__background"><img class="element__image" src="./images/gora-elbrus-background.jpg" alt="картинка Гора Эльбрус">
+                <div class="element__block">
+                    <p class="element__text">Гора Эльбрус</p>
+                    <div class="element__like-button"></div>
+                </div>
+            </div>
+        </div>
+        <div class="element">
+            <div class="element__background"><img class="element__image" src="./images/dombay-background.jpg" alt="картинка Домбай">
+                <div class="element__block">
+                    <p class="element__text">Домбай</p>
+                    <div class="element__like-button"></div>
+                </div>
+            </div>
+        </div>
+        <div class="element">
+            <div class="element__background"><img class="element__image" src="./images/gora-elbrus-background.jpg" alt="картинка Гора Эльбрус">
+                <div class="element__block">
+                    <p class="element__text">Гора Эльбрус</p>
+                    <div class="element__like-button"></div>
+                </div>
+            </div>
+        </div>
+        <div class="element">
+            <div class="element__background"><img class="element__image" src="./images/dombay-background.jpg" alt="картинка Домбай">
+                <div class="element__block">
+                    <p class="element__text">Домбай</p>
+                    <div class="element__like-button"></div>
+                </div>
+            </div>
+        </div>
+        <div class="element">
+            <div class="element__background"><img class="element__image" src="./images/karachaevo-ch-mesto.jpg" alt="картинка Карачаево-Черкессия">
+                <div class="element__block">
+                    <p class="element__text">Карачаево-Черкессия</p>
+                    <div class="element__like-button"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+    <section class="popup">
+        <div class="popup__container">
+            <img class="popup__close" src="./images/close-icon.svg" alt="закрыть форму">
+            <div class="popup__form">
+               <h2 class="popup__title">Редактировать профиль</h2>
+                <form class="popup__main">
+                    <fieldset class="popup__input-container">
+                        <input type="text" name="nameHeading" class="popup__item popup__item_text_heading" value>
+                        <input type="text" name="nameSubheading" class="popup__item popup__item_text_subheading" value>
+                    </fieldset>
+                    <fieldset class="popup__handler">
+                        <button class="popup__button-submit" type="submit">Сохранить</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <p class="footer__sign">&copy; 2020 Mesto Russia</p>
+    </footer>
+</div>
+<script src="./scripts/index.js" defer></script>
+</body>
+</html>
