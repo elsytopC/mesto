@@ -1,0 +1,7 @@
+.popup-image-zoomed__container {   
+   position: relative;
+   background: transparent;
+   max-width: 75vw;
+   max-height: 75vh;
+}
+
