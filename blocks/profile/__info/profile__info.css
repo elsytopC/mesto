@@ -1,0 +1,13 @@
+.profile__info {
+    min-width: 336px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-self: center;
+}
+
+@media screen and (min-width: 320px) and (max-width: 1279px) {
+   .profile__info {
+        min-width: 195px;
+    }
+}
