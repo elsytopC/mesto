@@ -1,0 +1,13 @@
+.popup__display-error {
+  position: absolute;
+  max-width: 90%;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
