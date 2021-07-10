@@ -1,7 +1,4 @@
-# Проект 4: Место Alt-H1
+# Project Mesto Russia
 
-Создание логики взаимодействия сайта с действиями пользователя. Применяемые технологии - HTML5, CSS3, JavaScript.
+### This project was created for a landing page. It's still in development but some elements has already been tested and they are in a good working shape.  
 
-Центральная фигура страницы - Жак-Ив Кусто. Всемирно известный исследователь океана.
-
-[Место](https://elsycloud.github.io/mesto/ "Проект 4")
