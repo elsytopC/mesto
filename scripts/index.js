@@ -50,29 +50,27 @@ popupOpenButton.addEventListener('click', () => {
 
 const popupAllShutDown = (step) => {
     step.classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', popupClosedWithEsc);
 }
 
 const popupAllClosedDown = (step, link) => {
     step.classList.add(link);
-    document.addEventListener('keydown', popupClosedWithEsc);
 }
 
-
-// Закрытие модальных окон по Escape
-popupWindow.forEach(function(popup) {
-    document.addEventListener('keydown', function (evt) {
-        if (evt.key === 'Escape') {
-            popupAllShutDown(popup)
-        };
-    })
-})
+// Закрытие модальных окон по Escape - единый обработчик
+document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+        const openedPopup = document.querySelector('.popup_is-opened');
+        if (openedPopup) {
+            popupAllShutDown(openedPopup);
+        }
+    }
+});
 
 // Закрытие модальных окон по Оверлей
 popupWindow.forEach(function(popup) {
     popup.addEventListener('click', function (evt) {
-        if (evt.target.classList.contains ('popup')) {
-            popupAllShutDown(popup)
+        if (evt.target.classList.contains('popup')) {
+            popupAllShutDown(popup);
         }
     });
 });
