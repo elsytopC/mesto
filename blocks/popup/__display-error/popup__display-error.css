@@ -1,5 +1,6 @@
 .popup__display-error {
   position: absolute;
+  top: calc(100% + 5px);
   max-width: 90%;
   font-family: Inter;
   font-style: normal;
