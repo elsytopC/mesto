@@ -109,7 +109,15 @@ function handleLikeIcon (evt) {
 }
 
 function handleDeleteCard (evt) {
-    evt.target.parentElement.remove()
+    const cardElement = evt.target.parentElement;
+    
+    // Add animation class
+    cardElement.classList.add('element_animated-delete');
+    
+    // Remove the element after animation completes
+    cardElement.addEventListener('animationend', () => {
+        cardElement.remove();
+    }, { once: true });
 }
 
 function loadCards () {

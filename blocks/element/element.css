@@ -6,11 +6,32 @@
 @import url(./__background/element__background.css);
 @import url(./__delete-button/element__delete-button.css);
 
-
-
 .element {
     min-width: 282px;
     Position: relative;
+    transition: all 0.3s ease;
+}
+
+.element_deleting {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+@keyframes deleteCard {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+.element_animated-delete {
+    animation: deleteCard 0.3s ease-out forwards;
+    pointer-events: none;
 }
 
 @media screen and (min-width: 320px) and (max-width: 1279px) {
