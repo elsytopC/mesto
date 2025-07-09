@@ -133,6 +133,20 @@ const popupPlusCreate = document.querySelector('.popup-add-button__add-button-cr
 const popupPlusContents = document.querySelector('.popup-add-button__add-main');
 
 popupPlusButton.addEventListener('click', () => {
+    // Clear form inputs
+    popupPlusTitle.value = '';
+    popupPlusLink.value = '';
+    
+    // Clear any error messages
+    popupAllErrors.forEach(error => {
+        error.textContent = '';
+        error.classList.remove('popup__display-error_active');
+    });
+    
+    // Reset button state
+    popupPlusCreate.classList.add('popup__button-submit_disabled');
+    popupPlusCreate.setAttribute('disabled', true);
+    
     openPopupToggle(popupMainPlusButton)
 });
 popupPlusClose.addEventListener('click', () => {
@@ -149,6 +163,20 @@ popupPlusContents.addEventListener('submit', (evt) => {
 
     const detailCard = getCardElement(coverCard)
     cardsContainer.prepend(detailCard);
+
+    // Reset form after successful submission
+    popupPlusTitle.value = '';
+    popupPlusLink.value = '';
+    
+    // Clear any error messages
+    popupAllErrors.forEach(error => {
+        error.textContent = '';
+        error.classList.remove('popup__display-error_active');
+    });
+    
+    // Reset button state
+    popupPlusCreate.classList.add('popup__button-submit_disabled');
+    popupPlusCreate.setAttribute('disabled', true);
 
     openPopupToggle(popupMainPlusButton)
 });

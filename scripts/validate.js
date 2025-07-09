@@ -129,10 +129,21 @@ const setEventListeners = (formElement) => {
     const buttonElement = formElement.querySelector(".popup__button-submit");
 
     inputList.forEach((inputElement) => {
-        inputElement.addEventListener("input", () => {
+        const handleInputChange = () => {
             checkInputValidity(formElement, inputElement);
             toggleButtonState(inputList, buttonElement);
+        };
+
+        inputElement.addEventListener("input", handleInputChange);
+        inputElement.addEventListener("paste", (evt) => {
+            // Use setTimeout to ensure the pasted content is processed
+            setTimeout(() => {
+                checkInputValidity(formElement, inputElement);
+                toggleButtonState(inputList, buttonElement);
+            }, 10);
         });
+        inputElement.addEventListener("change", handleInputChange);
+        inputElement.addEventListener("keyup", handleInputChange);
     });
 
     toggleButtonState(inputList, buttonElement);
