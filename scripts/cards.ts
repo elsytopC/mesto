@@ -1,4 +1,9 @@
-const initialCards = [
+interface Card {
+    name: string;
+    link: string;
+}
+
+const initialCards: Card[] = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
