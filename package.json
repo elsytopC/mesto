@@ -1,0 +1,17 @@
+{
+  "name": "mesto-russia",
+  "version": "1.0.0",
+  "description": "Mesto Russia project",
+  "main": "index.html",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "serve": "python3 -m http.server 8000"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "keywords": ["mesto", "russia", "cards"],
+  "author": "Andrey Khatyushin",
+  "license": "MIT"
+}
