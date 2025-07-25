@@ -1,34 +1,37 @@
 "use strict";
+// Utility functions for form validation
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add("popup__display-error_active");
+    if (errorElement) {
+        errorElement.textContent = errorMessage;
+        errorElement.classList.add("popup__display-error_active");
+    }
 };
 const hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    errorElement.textContent = "";
-    errorElement.classList.remove("popup__display-error_active");
+    if (errorElement) {
+        errorElement.textContent = "";
+        errorElement.classList.remove("popup__display-error_active");
+    }
 };
+// Russian pluralization helper
 const getNoun = (number, one, two, five) => {
-    let n = Math.abs(number);
-    n %= 100;
-    if (n >= 5 && n <= 20) {
+    const n = Math.abs(number) % 100;
+    if (n >= 5 && n <= 20)
         return five;
-    }
-    n %= 10;
-    if (n === 1) {
+    const lastDigit = n % 10;
+    if (lastDigit === 1)
         return one;
-    }
-    if (n >= 2 && n <= 4) {
+    if (lastDigit >= 2 && lastDigit <= 4)
         return two;
-    }
     return five;
 };
 const getPluralSymbols = (number) => {
     return `${number} ${getNoun(number, "символ", "символа", "символов")}`;
 };
-const getErrorMessage = (inputElement) => {
-    const emailErrorHandler = (inputElement) => {
+// Error message handlers
+const errorHandlers = {
+    email: (inputElement) => {
         if (inputElement.validity.typeMismatch) {
             return "Пожалуйста, введите корректный e-mail";
         }
@@ -36,29 +39,8 @@ const getErrorMessage = (inputElement) => {
             return "Пожалуйста, заполните поле с e-mail";
         }
         return inputElement.validationMessage;
-    };
-    const passwordErrorHandler = (inputElement) => {
-        if (inputElement.validity.patternMismatch) {
-            let errorMessage = inputElement.validationMessage;
-            if (!/.{8,}/.test(inputElement.value)) {
-                const length = inputElement.value.length;
-                const minLength = inputElement.getAttribute("minlength");
-                if (minLength) {
-                    const symbolsLeft = parseInt(minLength) - length;
-                    errorMessage = `Как минимум ${getPluralSymbols(parseInt(minLength))}. Осталось ввести еще ${getPluralSymbols(symbolsLeft)}`;
-                }
-            }
-            if (!/.*[A-ZА-Я].*/.test(inputElement.value)) {
-                errorMessage = "\nКак минимум 1 заглавная буква. ";
-            }
-            if (!/.*[a-zа-я].*/.test(inputElement.value)) {
-                errorMessage = "\nКак минимум 1 строчная буква.";
-            }
-            return errorMessage;
-        }
-        return inputElement.validationMessage;
-    };
-    const phoneNumberErrorHandler = (inputElement) => {
+    },
+    phone_number: (inputElement) => {
         if (inputElement.validity.valueMissing) {
             return "Пожалуйста, заполните номер телефона.";
         }
@@ -66,23 +48,36 @@ const getErrorMessage = (inputElement) => {
             return "Пожалуйста, введите номер телефона в формате 79777777777, +79777777777, 89777777777.";
         }
         return inputElement.validationMessage;
-    };
-    const defaultErrorHandler = (inputElement) => {
+    },
+    password: (inputElement) => {
+        if (inputElement.validity.patternMismatch) {
+            const errors = [];
+            if (!/.{8,}/.test(inputElement.value)) {
+                const minLength = inputElement.getAttribute("minlength");
+                if (minLength) {
+                    const length = inputElement.value.length;
+                    const symbolsLeft = parseInt(minLength) - length;
+                    errors.push(`Как минимум ${getPluralSymbols(parseInt(minLength))}. Осталось ввести еще ${getPluralSymbols(symbolsLeft)}`);
+                }
+            }
+            if (!/.*[A-ZА-Я].*/.test(inputElement.value)) {
+                errors.push("Как минимум 1 заглавная буква.");
+            }
+            if (!/.*[a-zа-я].*/.test(inputElement.value)) {
+                errors.push("Как минимум 1 строчная буква.");
+            }
+            return errors.join("\n");
+        }
         return inputElement.validationMessage;
-    };
-    const errorHandlers = {
-        email: emailErrorHandler,
-        phone_number: phoneNumberErrorHandler,
-        password: passwordErrorHandler,
-        DEFAULT: defaultErrorHandler,
-    };
-    const inputName = inputElement.name;
-    const errorHandler = errorHandlers[inputName] || errorHandlers.DEFAULT;
-    return errorHandler(inputElement);
+    },
+    DEFAULT: (inputElement) => inputElement.validationMessage
+};
+const getErrorMessage = (inputElement) => {
+    const handler = errorHandlers[inputElement.name] || errorHandlers.DEFAULT;
+    return handler(inputElement);
 };
 const checkInputValidity = (formElement, inputElement) => {
-    const isInputNotValid = !inputElement.validity.valid;
-    if (isInputNotValid) {
+    if (!inputElement.validity.valid) {
         const errorMessage = getErrorMessage(inputElement);
         showInputError(formElement, inputElement, errorMessage);
     }
@@ -91,7 +86,7 @@ const checkInputValidity = (formElement, inputElement) => {
     }
 };
 const hasInvalidInput = (inputList) => {
-    return inputList.some((inputElement) => !inputElement.validity.valid);
+    return inputList.some(input => !input.validity.valid);
 };
 const toggleButtonState = (inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
@@ -106,17 +101,16 @@ const toggleButtonState = (inputList, buttonElement) => {
 const setEventListeners = (formElement) => {
     const inputList = Array.from(formElement.querySelectorAll(".popup__item"));
     const buttonElement = formElement.querySelector(".popup__button-submit");
+    if (!buttonElement)
+        return;
     inputList.forEach((inputElement) => {
         const handleInputChange = () => {
             checkInputValidity(formElement, inputElement);
             toggleButtonState(inputList, buttonElement);
         };
         inputElement.addEventListener("input", handleInputChange);
-        inputElement.addEventListener("paste", (evt) => {
-            setTimeout(() => {
-                checkInputValidity(formElement, inputElement);
-                toggleButtonState(inputList, buttonElement);
-            }, 10);
+        inputElement.addEventListener("paste", () => {
+            setTimeout(handleInputChange, 10);
         });
         inputElement.addEventListener("change", handleInputChange);
         inputElement.addEventListener("keyup", handleInputChange);
@@ -125,14 +119,12 @@ const setEventListeners = (formElement) => {
 };
 const enableValidation = () => {
     const formElements = document.querySelectorAll(".popup__main");
-    const formList = Array.from(formElements);
-    const formListIterator = (formElement) => {
-        const submitFormHandler = (event) => {
+    formElements.forEach((formElement) => {
+        formElement.addEventListener("submit", (event) => {
             event.preventDefault();
-        };
-        formElement.addEventListener("submit", submitFormHandler);
+        });
         setEventListeners(formElement);
-    };
-    formList.forEach(formListIterator);
+    });
 };
+// Initialize validation
 enableValidation();
