@@ -1,9 +1,9 @@
-interface Card {
+export interface Card {
     name: string;
     link: string;
 }
 
-const initialCards: Card[] = [
+export const initialCards: Card[] = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'

@@ -1,5 +1,7 @@
 "use strict";
-const initialCards = [
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.initialCards = void 0;
+exports.initialCards = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
