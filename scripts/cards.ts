@@ -1,9 +1,10 @@
 interface Card {
-    name: string;
-    link: string;
+    readonly name: string;
+    readonly link: string;
 }
 
-const initialCards: Card[] = [
+// Use const assertion for better type safety and performance
+const initialCards: readonly Card[] = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -28,4 +29,8 @@ const initialCards: Card[] = [
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-];
+] as const;
+
+// Export for use in other modules
+export { initialCards };
+export type { Card };
