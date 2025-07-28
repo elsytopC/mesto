@@ -20,6 +20,33 @@ const popupAllErrors = Array.from(document.querySelectorAll('.popup__display-err
 const submitButton = document.querySelector('.popup__button-submit');
 const allClose = Array.from(document.querySelectorAll('.popup__close'));
 const allSubmitButtons = Array.from(document.querySelectorAll('.popup__button-submit'));
+// Card counter functionality
+let cardCount = 0;
+function updateCardCounter() {
+    const currentCards = cardsContainer.querySelectorAll('.element').length;
+    cardCount = currentCards;
+    // Update or create counter display
+    let counterElement = document.querySelector('.card-counter');
+    if (!counterElement) {
+        counterElement = document.createElement('div');
+        counterElement.className = 'card-counter';
+        counterElement.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        `;
+        document.body.appendChild(counterElement);
+    }
+    counterElement.textContent = `Карточек: ${cardCount}`;
+}
 function openPopupToggle(window) {
     window.classList.toggle('popup_is-opened');
 }
@@ -101,6 +128,7 @@ function handleDeleteCard(evt) {
         // Remove the element after animation completes
         cardElement.addEventListener('animationend', () => {
             cardElement.remove();
+            updateCardCounter(); // Update counter after deletion
         }, { once: true });
     }
 }
@@ -109,6 +137,7 @@ function loadCards() {
         const lists = getCardElement(item);
         cardsContainer.append(lists);
     });
+    updateCardCounter(); // Update counter after loading initial cards
 }
 loadCards();
 //Кнопка "+" и логика добавления элемента
@@ -144,6 +173,7 @@ popupPlusContents.addEventListener('submit', (evt) => {
     };
     const detailCard = getCardElement(coverCard);
     cardsContainer.prepend(detailCard);
+    updateCardCounter(); // Update counter after adding new card
     // Reset form after successful submission
     popupPlusTitle.value = '';
     popupPlusLink.value = '';
